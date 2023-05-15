@@ -1,10 +1,157 @@
 ﻿@page "/counter"
-@using Google.Cloud.Firestore
+@inject HttpClient HttpClient
 
-    <p>
-        <img src="@imageSource" />
-    </p>
+@if (subFiles.Length != 0 && signNames.Any())
+{
+    <div style="display:flex; flex-direction:row; flex-wrap:nowrap; justify-content:space-evenly; align-items:flex-start; align-content:center;">
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[0] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value0 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[1] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value1 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[2] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value2 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[3] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value3 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[4] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value4 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+    </div>
+    <div style="padding-top: 3%; display:flex; flex-direction:row; flex-wrap:nowrap; justify-content:space-evenly; align-items:flex-start; align-content:center;">
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[5] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value5 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[6] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value6 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[7] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value7 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[8] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value8 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+
+        <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
+            <div style="display:flex; overflow:hidden; width:fit-content;">
+                <img src=@subFiles[9] alt="" width="200px">
+            </div>
+            <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
+                <RadzenDropDown @bind-Value=@_value9 Data=@signNames Style="width:200px;"/>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding-top: 3%; display:flex; flex-direction:row; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center;">
+        <RadzenButton Click=@(args => OnClick("Primary button")) Text="Submit your guesses" ButtonStyle="ButtonStyle.Primary"/>
+    </div>
+}
 
 @code {
-    private string? imageSource = $"images/0_9.jpeg";
+
+    private string[] files = new string[]
+    {};
+
+    private string[] subFiles = new string[10];
+    private string _value0 = "Choose a traffic sign category";
+    private string _value1 = "Choose a traffic sign category";
+    private string _value2 = "Choose a traffic sign category";
+    private string _value3 = "Choose a traffic sign category";
+    private string _value4 = "Choose a traffic sign category";
+    private string _value5 = "Choose a traffic sign category";
+    private string _value6 = "Choose a traffic sign category";
+    private string _value7 = "Choose a traffic sign category";
+    private string _value8 = "Choose a traffic sign category";
+    private string _value9 = "Choose a traffic sign category";
+    private IEnumerable<string> signNames = Enumerable.Empty<string>();
+    private int[] correctSignClasses = new int[10];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var fileString = await HttpClient.GetStringAsync("files.txt");
+        files = fileString.Split(',');
+        var random = new Random();
+        for (int j = 0; j < 10; j++)
+        {
+            int next = random.Next(files.Length);
+            subFiles[j] = files[next].Trim();
+            correctSignClasses[j] = Int32.Parse((subFiles[j].Split('_')[1]).Split('.')[0]);
+            subFiles[j] = $"images/{subFiles[j]}";
+        }
+
+        var signString = await HttpClient.GetStringAsync("signnames.txt");
+        var signs = signString.Split(',');
+        foreach (var category in signs)
+        {
+            signNames = signNames.Append(category);
+        }
+    }
+    private void OnClick(string primaryButton)
+    {
+        Console.WriteLine(_value0);
+        Console.WriteLine(_value1);
+        Console.WriteLine(_value2);
+        Console.WriteLine(_value3);
+        Console.WriteLine(_value4);
+        Console.WriteLine(_value5);
+        Console.WriteLine(_value6);
+        Console.WriteLine(_value7);
+        Console.WriteLine(_value8);
+        Console.WriteLine(_value9);
+    }
 }
