@@ -1,5 +1,11 @@
-﻿@page "/counter"
+﻿@using System.Text
+@using System.Text.Json
 @inject HttpClient HttpClient
+@inject NavigationManager _nav
+
+@page "/quiz"
+
+<PageTitle>AI vs You!</PageTitle>
 
 @if (subFiles.Length != 0 && signNames.Any())
 {
@@ -7,7 +13,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[0] alt="" width="200px">
+                <img src=@imgLoc[0] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value0 Data=@signNames Style="width:200px;"/>
@@ -16,7 +22,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[1] alt="" width="200px">
+                <img src=@imgLoc[1] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value1 Data=@signNames Style="width:200px;"/>
@@ -25,7 +31,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[2] alt="" width="200px">
+                <img src=@imgLoc[2] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value2 Data=@signNames Style="width:200px;"/>
@@ -34,7 +40,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[3] alt="" width="200px">
+                <img src=@imgLoc[3] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value3 Data=@signNames Style="width:200px;"/>
@@ -43,7 +49,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[4] alt="" width="200px">
+                <img src=@imgLoc[4] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value4 Data=@signNames Style="width:200px;"/>
@@ -53,7 +59,7 @@
     <div style="padding-top: 3%; display:flex; flex-direction:row; flex-wrap:nowrap; justify-content:space-evenly; align-items:flex-start; align-content:center;">
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[5] alt="" width="200px">
+                <img src=@imgLoc[5] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value5 Data=@signNames Style="width:200px;"/>
@@ -62,7 +68,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[6] alt="" width="200px">
+                <img src=@imgLoc[6] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value6 Data=@signNames Style="width:200px;"/>
@@ -71,7 +77,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[7] alt="" width="200px">
+                <img src=@imgLoc[7] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value7 Data=@signNames Style="width:200px;"/>
@@ -80,7 +86,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[8] alt="" width="200px">
+                <img src=@imgLoc[8] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value8 Data=@signNames Style="width:200px;"/>
@@ -89,7 +95,7 @@
 
         <div style="width:fit-content; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center; overflow:hidden;">
             <div style="display:flex; overflow:hidden; width:fit-content;">
-                <img src=@subFiles[9] alt="" width="200px">
+                <img src=@imgLoc[9] alt="" width="200px">
             </div>
             <div style="padding-top:5%; display:flex; overflow:hidden; width:fit-content; float:left;">
                 <RadzenDropDown @bind-Value=@_value9 Data=@signNames Style="width:200px;"/>
@@ -97,32 +103,39 @@
         </div>
     </div>
 
-    <div style="padding-top: 3%; display:flex; flex-direction:row; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center;">
-        <RadzenButton Click=@(args => OnClick("Primary button")) Text="Submit your guesses" ButtonStyle="ButtonStyle.Primary"/>
+    <div style="padding-top: 3%; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:space-evenly; align-items:center; align-content:center;">
+        <div><RadzenButton Click=@(args => OnClick("Primary button")) Text="Submit your guesses" ButtonStyle="ButtonStyle.Primary"/></div>
+        <div style="padding-top: 3%;"><RadzenLabel Text=@label></RadzenLabel></div>
     </div>
 }
 
 @code {
-
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string username { get; set; }
+    
     private string[] files = new string[]
     {};
-
     private string[] subFiles = new string[10];
-    private string _value0 = "Choose a traffic sign category";
-    private string _value1 = "Choose a traffic sign category";
-    private string _value2 = "Choose a traffic sign category";
-    private string _value3 = "Choose a traffic sign category";
-    private string _value4 = "Choose a traffic sign category";
-    private string _value5 = "Choose a traffic sign category";
-    private string _value6 = "Choose a traffic sign category";
-    private string _value7 = "Choose a traffic sign category";
-    private string _value8 = "Choose a traffic sign category";
-    private string _value9 = "Choose a traffic sign category";
+    private string[] imgLoc = new string[10];
+    private string _value0 = "Choose a category";
+    private string _value1 = "Choose a category";
+    private string _value2 = "Choose a category";
+    private string _value3 = "Choose a category";
+    private string _value4 = "Choose a category";
+    private string _value5 = "Choose a category";
+    private string _value6 = "Choose a category";
+    private string _value7 = "Choose a category";
+    private string _value8 = "Choose a category";
+    private string _value9 = "Choose a category";
     private IEnumerable<string> signNames = Enumerable.Empty<string>();
     private int[] correctSignClasses = new int[10];
+    private string label;
 
     protected override async Task OnInitializedAsync()
     {
+        Console.WriteLine("username-> " + username);
+        label = String.Empty;
         var fileString = await HttpClient.GetStringAsync("files.txt");
         files = fileString.Split(',');
         var random = new Random();
@@ -131,7 +144,7 @@
             int next = random.Next(files.Length);
             subFiles[j] = files[next].Trim();
             correctSignClasses[j] = Int32.Parse((subFiles[j].Split('_')[1]).Split('.')[0]);
-            subFiles[j] = $"images/{subFiles[j]}";
+            imgLoc[j] = $"images/{subFiles[j]}";
         }
 
         var signString = await HttpClient.GetStringAsync("signnames.txt");
@@ -141,17 +154,118 @@
             signNames = signNames.Append(category);
         }
     }
-    private void OnClick(string primaryButton)
+
+    private async void OnClick(string primaryButton)
     {
-        Console.WriteLine(_value0);
-        Console.WriteLine(_value1);
-        Console.WriteLine(_value2);
-        Console.WriteLine(_value3);
-        Console.WriteLine(_value4);
-        Console.WriteLine(_value5);
-        Console.WriteLine(_value6);
-        Console.WriteLine(_value7);
-        Console.WriteLine(_value8);
-        Console.WriteLine(_value9);
+        if (_value0.Equals("Choose a category") || _value1.Equals("Choose a category") || _value2.Equals("Choose a category") || _value3.Equals("Choose a category")
+            || _value4.Equals("Choose a category") || _value5.Equals("Choose a category") || _value6.Equals("Choose a category") || _value7.Equals("Choose a category")
+            || _value8.Equals("Choose a category") || _value9.Equals("Choose a category"))
+        {
+            label = "You don't know all the signs? Answer them all!";
+        }
+        else {
+            label = String.Empty;
+            string[] signNamesv2 = signNames.ToArray();
+            var userGuesses = new[]
+            {
+                Array.IndexOf(signNamesv2, _value0),
+                Array.IndexOf(signNamesv2, _value1),
+                Array.IndexOf(signNamesv2, _value2),
+                Array.IndexOf(signNamesv2, _value3),
+                Array.IndexOf(signNamesv2, _value4),
+                Array.IndexOf(signNamesv2, _value5),
+                Array.IndexOf(signNamesv2, _value6),
+                Array.IndexOf(signNamesv2, _value7),
+                Array.IndexOf(signNamesv2, _value8),
+                Array.IndexOf(signNamesv2, _value9)
+            };
+
+            int[] success = await GetModelPrediction();
+            CalculateScores(success, userGuesses);
+        }
+    }
+
+    private async void CalculateScores(int[] modelPredictions, int[] userGuesses)
+    {
+        int modelScore = 0, userScore = 0;
+        for (int i = 0; i < correctSignClasses.Length; i++)
+        {
+            if (modelPredictions[i] == correctSignClasses[i])
+                modelScore++;
+            if (userGuesses[i] == correctSignClasses[i])
+                userScore++;
+        }
+        
+        SubmitScore(username, userScore*10, modelScore*10);
+        _nav.NavigateTo("/comparedata");
+    }
+
+    private async void SubmitScore(string username, float userScore, float modelScore)
+    {
+        StringBuilder toSend = new StringBuilder("{");
+        toSend.AppendFormat("\"username\": \"{0}\",\"user_score\": {1},\"model_score\": {2}", username, userScore, modelScore);
+        toSend.Append("}");
+        Console.WriteLine(toSend);
+        var body = new StringContent(toSend.ToString(), Encoding.UTF8, "application/json");
+        try
+        {
+            await HttpClient.PostAsync($"https://metacars.pythonanywhere.com/submit", body);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+    
+    private async Task<int[]> GetModelPrediction()
+    {
+        string success = String.Empty;
+        StringBuilder toSend = new StringBuilder("{");
+        for (int i = 0; i < 10; i++)
+        {
+            toSend.AppendFormat("\"{0}\":\"{1}\",", i, subFiles[i]);
+            if (i == 9)
+                toSend.AppendFormat("\"{0}\":\"{1}\"", i, subFiles[i]);
+        }
+        toSend.Append("}");
+
+        var responseMessage = new HttpResponseMessage();
+
+        var body = new StringContent(toSend.ToString(), Encoding.UTF8, "application/json");
+        try
+        {
+            responseMessage =
+                await HttpClient.PostAsync($"https://metacars.pythonanywhere.com/predict", body);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+        var content = await responseMessage.Content.ReadAsStringAsync();
+        try
+        {
+            success = JsonSerializer.Deserialize<string>(content, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            })!;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
+        success = success.Remove(0,1);
+        success = success.Remove(success.Length - 1, 1);
+        string[] split = success.Split(",", StringSplitOptions.RemoveEmptyEntries);
+        Dictionary<string, string> dictionary =
+            split.Select(item => item.Split(':')).ToDictionary(s => s[0], s => s[1]);
+        int[] listOfInts = new int[10];
+        foreach (var keyValues in dictionary)
+        {
+            listOfInts[Int32.Parse(keyValues.Key)-1] = Int32.Parse(keyValues.Value);
+        }
+        
+        return listOfInts;
     }
 }

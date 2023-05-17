@@ -1,9 +1,46 @@
 ﻿@page "/"
+@inject NavigationManager _nav
 
-<PageTitle>Index</PageTitle>
+<PageTitle>AI vs You!</PageTitle>
 
-<h1>Hello, world!</h1>
+<RadzenText Style="justify-content: center; display: flex;" TextStyle="TextStyle.H3">Welcome to the quiz against AI</RadzenText>
+<RadzenText Style="justify-content: center; display: flex;" TextStyle="TextStyle.Body1">
+    To take the quiz, first login. After which you will be presented with 10 traffic signs that you need to classify and submit your answer.
+</RadzenText>
+<RadzenText Style="justify-content: center; display: flex;" TextStyle="TextStyle.Body1">
+    In the end, you will see results on the same traffic signs from AI vs you.
+</RadzenText>
 
-Welcome to your new app.
+<div style="display: flex; flex-direction: column; flex-wrap: wrap; justify-content: space-evenly; align-items: center; align-content: space-around;">
+    <div>
+        <RadzenFormField Text="Enter your username" Style="width: 100%;">
+            <RadzenTextBox @bind-Value="@value" Style="width: 100%;"/>
+        </RadzenFormField>
+    </div>
+    <div style="padding-top: 1%;">
+        <RadzenButton Click=@(args => OnClick("Primary button")) Text="Enter the quiz!"  ButtonStyle="ButtonStyle.Primary"/>
+    </div>
+    <div style="padding-top: 1%;">
+        <RadzenLabel Text=@label></RadzenLabel>
+    </div>
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?"/>
+@code {
+    private string username { get; set; }
+
+    private string value = "";
+    string label = "";
+
+    private void OnClick(string primaryButton)
+    {
+        if (value.Equals(""))
+            label = "Please first enter your username";
+        else
+        {
+            label = String.Empty;
+            username = value;
+            //_nav.NavigateTo("/comparedata");
+            _nav.NavigateTo("/quiz?username="+username);
+        }
+    }
+}
